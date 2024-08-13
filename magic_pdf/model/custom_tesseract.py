@@ -50,7 +50,7 @@ def mfr_model_init(weight_dir, cfg_path, _device_='cpu'):
 def layout_model_init(weight, config_file, device):
     model = Layoutlmv3_Predictor(weight, config_file, device)
     return model
-
+current_dir = os.getcwd()
 
 class MathDataset(Dataset):
     def __init__(self, image_paths, transform=None):
@@ -80,11 +80,11 @@ class CustomTesseractModel:
         # 获取当前文件（即 pdf_extract_kit.py）的绝对路径
         current_file_path = os.path.abspath(__file__)
         # 获取当前文件所在的目录(model)
-        current_dir = os.path.dirname(current_file_path)
+        current_dir = os.path.join(os.getcwd(), "magic_pdf") #os.path.dirname(current_file_path)
         # 上一级目录(magic_pdf)
         root_dir = os.path.dirname(current_dir)
         # model_config目录
-        model_config_dir = os.path.join(root_dir, 'resources', 'model_config')
+        model_config_dir = os.path.join(current_dir, 'resources', 'model_config')
         # 构建 model_configs.yaml 文件的完整路径
         config_path = os.path.join(model_config_dir, 'model_configs.yaml')
         with open(config_path, "r") as f:
@@ -217,7 +217,7 @@ class CustomTesseractModel:
                     #             'score': round(ocr_res["conf"][i]/100, 2),
                     #             'text': ocr_res["text"][i],
                     #         })
-                    ocr_res = pytesseract.image_to_string(cropped_img,lang="por")
+                    ocr_res = pytesseract.image_to_string(cropped_img, lang="por")
                     if ocr_res:
                         if ocr_res=="":
                             continue
@@ -225,7 +225,6 @@ class CustomTesseractModel:
                         p2 = [xmax,ymin]
                         p3 = [xmax,ymax]
                         p4 = [xmin,ymax]
-                        
 
                         layout_res.append({
                             'category_id': 15,

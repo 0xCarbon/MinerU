@@ -86,7 +86,6 @@ def custom_model_init(ocr: bool = False, show_log: bool = False):
         model = MODEL.Tesseract
         logger.info("USING TESSERACT MODEL")
 
-
     if model_config.__use_inside_model__:
         model_init_start = time.time()
         if model == MODEL.Paddle:
@@ -139,6 +138,7 @@ def doc_analyze(pdf_bytes: bytes, ocr: bool = False, show_log: bool = False):
         page_info = {"page_no": index, "height": page_height, "width": page_width}
         page_dict = {"layout_dets": result, "page_info": page_info}
         model_json.append(page_dict)
+
     doc_analyze_cost = time.time() - doc_analyze_start
     logger.info(f"doc analyze cost: {doc_analyze_cost}")
 

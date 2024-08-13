@@ -336,6 +336,7 @@ def ocr_mk_mm_standard_format(pdf_info_dict: list):
 
 def union_make(pdf_info_dict: list, make_mode: str, drop_mode: str, img_buket_path: str = ""):
     output_content = []
+    page_idx_last = None
     for page_info in pdf_info_dict:
         if page_info.get("need_drop", False):
             drop_reason = page_info.get("drop_reason")
@@ -351,6 +352,31 @@ def union_make(pdf_info_dict: list, make_mode: str, drop_mode: str, img_buket_pa
 
         paras_of_layout = page_info.get("para_blocks")
         page_idx = page_info.get("page_idx")
+
+        if page_idx_last is None or page_idx != page_idx_last:
+            if page_idx_last is not None:
+                max_height = max([bbox['layout_bbox'][3] for bbox in page_info['_layout_tree']])
+                perc = max_height / page_info['page_size'][1]
+
+                if make_mode in [MakeMode.MM_MD, MakeMode.NLP_MD]:
+                    output_content.append(f'<<PAGE_PERCENT {perc}>>')
+                    output_content.append('<<PAGE_END>>')
+                elif make_mode == MakeMode.STANDARD_FORMAT:
+                    output_content.append({'page_idx': page_idx, 'text': f'<<PAGE_PERCENT {perc}>>', 'type': 'text'})
+                    output_content.append({'page_idx': page_idx, 'text': '<<PAGE_END>>', 'type': 'text'})
+            page_idx_last = page_idx
+
+        for discarded in page_info['discarded_blocks']:
+            if discarded['bbox'][1] < page_info['page_size'][1]:
+                if make_mode in [MakeMode.MM_MD, MakeMode.NLP_MD]:
+                    lines_text = [f"<<HEADER {span['content']}>>"
+                                  for line in discarded['lines'] for span in line['spans']]
+                    output_content.extend(lines_text)
+                elif make_mode == MakeMode.STANDARD_FORMAT:
+                    lines_text = [{'page_idx': page_idx, 'text': f"<<HEADER {span['content']}>>", 'type': 'text'}
+                                 for line in discarded['lines'] for span in line['spans']]
+                    output_content.extend(lines_text)
+
         if not paras_of_layout:
             continue
         if make_mode == MakeMode.MM_MD:

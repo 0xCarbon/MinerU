@@ -127,7 +127,7 @@ def parse_page_core(pdf_docs, magic_model, page_id, pdf_bytes_md5, imageWriter, 
         drop_reason.append(DropReason.OVERLAP_BLOCKS_CAN_NOT_SEPARATION)
 
     '''先处理不需要排版的discarded_blocks'''
-    discarded_block_with_spans, spans = fill_spans_in_blocks(all_discarded_blocks, spans, 0.4)
+    discarded_block_with_spans, spans = fill_spans_in_blocks(all_discarded_blocks, spans, 0.4, page_h)
     fix_discarded_blocks = fix_discarded_block(discarded_block_with_spans)
 
     '''如果当前页面没有bbox则跳过'''

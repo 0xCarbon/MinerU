@@ -141,7 +141,7 @@ def sort_blocks_by_layout(all_bboxes, layout_bboxes):
     return sort_blocks
 
 
-def fill_spans_in_blocks(blocks, spans, radio):
+def fill_spans_in_blocks(blocks, spans, radio, page_h=None):
     '''
     将allspans中的span按位置关系，放入blocks中
     '''
@@ -158,6 +158,11 @@ def fill_spans_in_blocks(blocks, spans, radio):
             span_bbox = span['bbox']
             if calculate_overlap_area_in_bbox1_area_ratio(span_bbox, block_bbox) > radio:
                 block_spans.append(span)
+                # if page_h is None or span_bbox[1] > page_h / 5:
+                #     block_spans.append(span)
+                # elif (span['type'] == BlockType.Text and span['content'] and isinstance(span['content'], str)
+                #       and span['content'].find("<<HEADER") == -1):
+                #     span['content-header'] = f'<<HEADER {span["content"]}>>'
 
         '''行内公式调整, 高度调整至与同行文字高度一致(优先左侧, 其次右侧)'''
         # displayed_list = []

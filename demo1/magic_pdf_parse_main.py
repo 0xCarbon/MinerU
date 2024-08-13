@@ -121,10 +121,8 @@ def pdf_parse_main(
         content_list = pipe.pipe_mk_uni_format(image_path_parent, drop_mode="none")
         md_content = pipe.pipe_mk_markdown(image_path_parent, drop_mode="none")
 
-
         if is_json_md_dump:
             json_md_dump(pipe, md_writer, pdf_name, content_list, md_content)
-
 
     except Exception as e:
         logger.exception(e)
