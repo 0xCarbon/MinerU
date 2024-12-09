@@ -70,7 +70,7 @@ without method specified, auto will be used by default.""",
 )
 def cli(path, output_dir, method, debug_able, start_page_id, end_page_id):
     model_config.__use_inside_model__ = True
-    model_config.__model_mode__ = 'full'
+    model_config.__model_mode__ = 'tesseract'
     os.makedirs(output_dir, exist_ok=True)
 
     def read_fn(path):

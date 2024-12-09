@@ -37,3 +37,6 @@ ocr_demo
 source.dev.env
 
 tmp
+
+build/
+*.egg*
