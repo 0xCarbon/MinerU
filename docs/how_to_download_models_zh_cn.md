@@ -8,9 +8,9 @@
   <summary>方法一：从 Hugging Face 下载模型</summary>
   <p>使用python脚本 从Hugging Face下载模型文件</p>
   <pre><code>pip install huggingface_hub
-wget https://gitee.com/myhloli/MinerU/raw/master/docs/download_models_hf.py -O download_models_hf.py
+wget https://gitee.com/myhloli/MinerU/raw/master/scripts/download_models_hf.py -O download_models_hf.py
 python download_models_hf.py</code></pre>
-  <p>python脚本执行完毕后，会输出模型下载目录</p>
+  <p>python脚本会自动下载模型文件并配置好配置文件中的模型目录</p>
 </details>
 
 ## 方法二：从 ModelScope 下载模型
@@ -19,12 +19,14 @@ python download_models_hf.py</code></pre>
 
 ```bash
 pip install modelscope
-wget https://gitee.com/myhloli/MinerU/raw/master/docs/download_models.py -O download_models.py
+wget https://gitee.com/myhloli/MinerU/raw/master/scripts/download_models.py -O download_models.py
 python download_models.py
 ```
 python脚本会自动下载模型文件并配置好配置文件中的模型目录
 
 配置文件可以在用户目录中找到，文件名为`magic-pdf.json`
+
+> [!TIP]
 > windows的用户目录为 "C:\\Users\\用户名", linux用户目录为 "/home/用户名", macOS用户目录为 "/Users/用户名"
 
 
@@ -32,16 +34,13 @@ python脚本会自动下载模型文件并配置好配置文件中的模型目�
 
 ## 1. 通过git lfs下载过模型
 
->由于部分用户反馈通过git lfs下载模型文件遇到下载不全和模型文件损坏情况，现已不推荐使用该方式下载。
-
-如此前通过 git lfs 下载过模型文件，可以进入到之前的下载目录中，通过`git pull`命令更新模型。
-
-> 0.9.x及以后版本由于新增layout排序模型，且该模型和此前的模型不在同一仓库，不能通过`git pull`命令更新，需要单独下载。
+> [!IMPORTANT]
+> 由于部分用户反馈通过git lfs下载模型文件遇到下载不全和模型文件损坏情况，现已不推荐使用该方式下载。
 > 
->``` 
->from modelscope import snapshot_download
->snapshot_download('ppaanngggg/layoutreader')
->```
+> 0.9.x及以后版本由于PDF-Extract-Kit 1.0更换仓库和新增layout排序模型，不能通过`git pull`命令更新，需要使用python脚本一键更新。
+
+当magic-pdf <= 0.8.1时，如此前通过 git lfs 下载过模型文件，可以进入到之前的下载目录中，通过`git pull`命令更新模型。
+
 
 ## 2. 通过 Hugging Face 或 Model Scope 下载过模型
 

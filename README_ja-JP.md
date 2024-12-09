@@ -1,3 +1,5 @@
+> [!Warning]
+> このドキュメントはすでに古くなっています。最新版のドキュメントを参照してください：[ENGLISH](README.md)。
 <div id="top">
 
 <p align="center">
@@ -16,6 +18,7 @@
 [![Downloads](https://static.pepy.tech/badge/magic-pdf/month)](https://pepy.tech/project/magic-pdf)
 
 <a href="https://trendshift.io/repositories/11174" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11174" alt="opendatalab%2FMinerU | Trendshift" style="width: 200px; height: 55px;"/></a>
+
 
 
 
@@ -290,14 +293,23 @@ https://github.com/opendatalab/MinerU/assets/11393164/20438a02-ce6c-4af8-9dde-d7
 # 引用
 
 ```bibtex
-@misc{2024mineru,
-    title={MinerU: A One-stop, Open-source, High-quality Data Extraction Tool},
-    author={MinerU Contributors},
-    howpublished = {\url{https://github.com/opendatalab/MinerU}},
-    year={2024}
+@misc{wang2024mineruopensourcesolutionprecise,
+      title={MinerU: An Open-Source Solution for Precise Document Content Extraction}, 
+      author={Bin Wang and Chao Xu and Xiaomeng Zhao and Linke Ouyang and Fan Wu and Zhiyuan Zhao and Rui Xu and Kaiwen Liu and Yuan Qu and Fukai Shang and Bo Zhang and Liqun Wei and Zhihao Sui and Wei Li and Botian Shi and Yu Qiao and Dahua Lin and Conghui He},
+      year={2024},
+      eprint={2409.18839},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2409.18839}, 
+}
+
+@article{he2024opendatalab,
+  title={Opendatalab: Empowering general artificial intelligence with open datasets},
+  author={He, Conghui and Li, Wei and Jin, Zhenjiang and Xu, Chao and Wang, Bin and Lin, Dahua},
+  journal={arXiv preprint arXiv:2407.13773},
+  year={2024}
 }
 ```
-
 
 # スター履歴
 

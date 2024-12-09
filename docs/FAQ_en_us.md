@@ -11,7 +11,7 @@ pip install magic-pdf[full]
 
 ### 2. Encountering the error `pickle.UnpicklingError: invalid load key, 'v'.` during use
 
-This might be due to an incomplete download of the model file. You can try re-downloading the model file and then try again.  
+This might be due to an incomplete download of the model file. You can try re-downloading the model file and then try again.
 Reference: https://github.com/opendatalab/MinerU/issues/143
 
 ### 3. Where should the model files be downloaded and how should the `/models-dir` configuration be set?
@@ -24,7 +24,7 @@ The path for the model files is configured in "magic-pdf.json". just like:
 }
 ```
 
-This path is an absolute path, not a relative path. You can obtain the absolute path in the models directory using the "pwd" command.  
+This path is an absolute path, not a relative path. You can obtain the absolute path in the models directory using the "pwd" command.
 Reference: https://github.com/opendatalab/MinerU/issues/155#issuecomment-2230216874
 
 ### 4. Encountered the error `ImportError: libGL.so.1: cannot open shared object file: No such file or directory` in Ubuntu 22.04 on WSL2
@@ -38,17 +38,38 @@ sudo apt-get install libgl1-mesa-glx
 Reference: https://github.com/opendatalab/MinerU/issues/388
 
 ### 5. Encountered error `ModuleNotFoundError: No module named 'fairscale'`
+
 You need to uninstall the module and reinstall it:
+
 ```bash
 pip uninstall fairscale
 pip install fairscale
 ```
+
 Reference: https://github.com/opendatalab/MinerU/issues/411
 
 ### 6. On some newer devices like the H100, the text parsed during OCR using CUDA acceleration is garbled.
 
 The compatibility of cuda11 with new graphics cards is poor, and the CUDA version used by Paddle needs to be upgraded.
+
 ```bash
 pip install paddlepaddle-gpu==3.0.0b1 -i https://www.paddlepaddle.org.cn/packages/stable/cu123/
 ```
+
 Reference: https://github.com/opendatalab/MinerU/issues/558
+
+### 7. On some Linux servers, the program immediately reports an error `Illegal instruction (core dumped)`
+
+This might be because the server's CPU does not support the AVX/AVX2 instruction set, or the CPU itself supports it but has been disabled by the system administrator. You can try contacting the system administrator to remove the restriction or change to a different server.
+
+References: https://github.com/opendatalab/MinerU/issues/591 , https://github.com/opendatalab/MinerU/issues/736
+
+
+### 8. Error when installing MinerU on CentOS 7 or Ubuntu 18: `ERROR: Failed building wheel for simsimd`
+
+The new version of albumentations (1.4.21) introduces a dependency on simsimd. Since the pre-built package of simsimd for Linux requires a glibc version greater than or equal to 2.28, this causes installation issues on some Linux distributions released before 2019. You can resolve this issue by using the following command:
+```
+pip install -U magic-pdf[full,old_linux] --extra-index-url https://wheels.myhloli.com
+```
+
+Reference: https://github.com/opendatalab/MinerU/issues/1004
